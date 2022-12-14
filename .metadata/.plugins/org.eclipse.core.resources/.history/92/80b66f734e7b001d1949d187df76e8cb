@@ -1,0 +1,50 @@
+package com.example.demo.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.AddKk;
+import com.example.demo.repository.IKkRepository;
+import com.example.demo.service.IKkService;
+
+@Service
+public class KkService implements IKkService {
+	
+	@Autowired
+	IKkRepository kkRepository;
+
+	@Override
+	public AddKk insertAddKk(AddKk AddKk) {
+		// TODO Auto-generated method stub
+		return kkRepository.insertAddKk(AddKk);
+	}
+
+	@Override
+	public List<AddKk> getAllAddKk() {
+		// TODO Auto-generated method stub
+		return kkRepository.getAllAddKk();
+	}
+
+	@Override
+	public AddKk updateAddKk(int id, AddKk AddKk) {
+		// TODO Auto-generated method stub
+		return kkRepository.updateAddKk(id, AddKk);
+	}
+
+	@Override
+	public AddKk deleteAddKk(int id) {
+		// TODO Auto-generated method stub
+		return kkRepository.deleteAddKk(id);
+	}
+
+	@Override
+	public AddKk getKkById(int id) {
+		// TODO Auto-generated method stub
+		return kkRepository.getAddKkById(id);
+	}
+
+
+
+}
