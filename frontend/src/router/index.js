@@ -32,7 +32,17 @@ const routes = [
         path: '/detail/:id',
         name: 'DetailPage',
         component: () => import('../views/DetailView')
-      }
+      },
+      {
+        path: '/detail/:id/list',
+        name: 'ListPage',
+        component: () => import('../views/ListView')
+      },
+      {
+        path: '/detail/:id/list/detailAnggota/:id_kk',
+        name: 'DetailAnggotaPage',
+        component: () => import('../views/DetailAnggotaView')
+      },
     ]
   },
   {
@@ -42,9 +52,9 @@ const routes = [
     children: [
       {
         path: '/',
-        name: 'LoginPage',
-        component: () => import('../views/auth/Login')
-      }
+        name: 'login',
+        component: () => import('../views/auth/Login.vue')
+      },
     ]
   }
 ]

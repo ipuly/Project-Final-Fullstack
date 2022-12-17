@@ -1,302 +1,279 @@
 <template>
-
-  <body>
-    <div class="container">
-      <div class="forms">
-        <!-- <div>
-                    <img src="@/assets/logo.png" alt="">
-                </div> -->
-        <div class="form login">
-          <span class="title">Login E-KTP</span>
-
-          <form action="#">
-            <div class="input-field">
-              <input type="email" placeholder="Enter your email" required>
-              <i class="uil uil-envelope icon"></i>
-            </div>
-            <div class="input-field">
-              <input type="password" class="password" placeholder="Enter your password" required>
-              <i class="uil uil-lock icon"></i>
-              <i class="uil uil-eye-slash showHidePw"></i>
-            </div>
-
-            <div class="input-field button">
-              <router-link to="/home"><input type="submit" value="Login"></router-link>
-            </div>
-          </form>
-
-          <div class="login-signup">
-            <span class="text">Not a member?
-              <router-link to="" class="text signup-link">Signup Now</router-link>
-            </span>
+  <div>
+    <div class="container" id="container">  
+      <div class="form-container sign-up-container">
+        <form action="#">
+          <h1>Create Account</h1>
+          <input type="text" placeholder="Name" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button class="mt-2">Sign Up</button>
+        </form>
+      </div>
+      
+      <div class="form-container sign-in-container">
+        <form action="#">
+          <h1>Sign in</h1>
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button>Sign In</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <img src="@/assets/logo.png" class="w-50" alt="">
+            <h1>E KTP Register</h1>
+            <button class="ghost" id="signIn">Sign In</button>
           </div>
-        </div>
-
-        <!-- Registration Form -->
-        <div class="form signup">
-          <span class="title">Registration E-KTP</span>
-
-          <form action="post">
-            <div class="input-field">
-              <input type="text" placeholder="Enter your name" required>
-              <i class="uil uil-user"></i>
-            </div>
-            <div class="input-field">
-              <input type="email" placeholder="Enter your email" required>
-              <i class="uil uil-envelope icon"></i>
-            </div>
-            <div class="input-field">
-              <input type="password" class="password" placeholder="Create a password" required>
-              <i class="uil uil-lock icon"></i>
-            </div>
-            <div class="input-field">
-              <input type="password" class="password" placeholder="Confirm a password" required>
-              <i class="uil uil-lock icon"></i>
-              <i class="uil uil-eye-slash showHidePw"></i>
-            </div>
-
-            <div class="input-field button">
-              <input type="submit" value="Signup">
-            </div>
-          </form>
-
-          <div class="login-signup">
-            <span class="text">Already a member?
-              <router-link to="" class="text login-link">Login Now</router-link>
-            </span>
+          <div class="overlay-panel overlay-right">
+            <img src="@/assets/logo.png" class="w-50" alt="">
+            <h1>E KTP Login</h1>
+            <button class="ghost" id="signUp">Sign Up</button>
           </div>
         </div>
       </div>
+      
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'authLogRegComponent',
-  mounted: function hahaha() {
-    const 
-      container = document.querySelector(".container"),
-      pwShowHide = document.querySelectorAll(".showHidePw"),
-      pwFields = document.querySelectorAll(".password"),
-      signUp = document.querySelector(".signup-link"),
-      login = document.querySelector(".login-link");
+  methods: {
+    loginsignup(){
+      const signUpButton = document.getElementById('signUp');
+      const signInButton = document.getElementById('signIn');
+      const container = document.getElementById('container');
 
-    //   js code to show/hide password and change icon
-    pwShowHide.forEach(eyeIcon => {
-      eyeIcon.addEventListener("click", () => {
-        pwFields.forEach(pwField => {
-          if (pwField.type === "password") {
-            pwField.type = "text";
+      signUpButton.addEventListener('click', () => {
+        container.classList.add("right-panel-active");
+      });
 
-            pwShowHide.forEach(icon => {
-              icon.classList.replace("uil-eye-slash", "uil-eye");
-            })
-          } else {
-            pwField.type = "password";
-
-            pwShowHide.forEach(icon => {
-              icon.classList.replace("uil-eye", "uil-eye-slash");
-            })
-          }
-        })
-      })
-    })
-
-    // js code to appear signup and login form
-    signUp.addEventListener("click", () => {
-      container.classList.add("active");
-    });
-    login.addEventListener("click", () => {
-      container.classList.remove("active");
-    });
-
+      signInButton.addEventListener('click', () => {
+        container.classList.remove("right-panel-active");
+      });
+    }
+  },
+  mounted(){
+    this.loginsignup()
   }
 }
 </script>
 
-<style scoped lang="scss">
-/* ===== Google Font Import - Poformsins ===== */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #4070f4;
-}
-
-.container {
-  position: relative;
-  max-width: 430px;
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin: 0 20px;
-}
-
-.container .forms {
-  display: flex;
-  align-items: center;
-  height: 440px;
-  width: 200%;
-  transition: height 0.2s ease;
-}
-
-.container .form {
-  width: 50%;
-  padding: 30px;
-  background-color: #fff;
-  transition: margin-left 0.18s ease;
-}
-
-.container.active .login {
-  margin-left: -50%;
-  opacity: 0;
-  transition: margin-left 0.18s ease, opacity 0.15s ease;
-}
-
-.container .signup {
-  opacity: 0;
-  transition: opacity 0.09s ease;
-}
-
-.container.active .signup {
-  opacity: 1;
-  transition: opacity 0.2s ease;
-}
-
-.container.active .forms {
-  height: 600px;
-}
-
-.container .form .title {
-  position: relative;
-  font-size: 27px;
-  font-weight: 600;
-}
-
-.form .title::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 30px;
-  background-color: #4070f4;
-  border-radius: 25px;
-}
-
-.form .input-field {
-  position: relative;
-  height: 50px;
-  width: 100%;
-  margin-top: 30px;
-}
-
-.input-field input {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  padding: 0 35px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  border-bottom: 2px solid #ccc;
-  border-top: 2px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.input-field input:is(:focus, :valid) {
-  border-bottom-color: #4070f4;
-}
-
-.input-field i {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #999;
-  font-size: 23px;
-  transition: all 0.2s ease;
-}
-
-.input-field input:is(:focus, :valid)~i {
-  color: #4070f4;
-}
-
-.input-field i.icon {
-  left: 0;
-}
-
-.input-field i.showHidePw {
-  right: 0;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.form .checkbox-text {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.checkbox-text .checkbox-content {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-content input {
-  margin-right: 10px;
-  accent-color: #4070f4;
-}
-
-.form .text {
-  color: #333;
-  font-size: 14px;
-}
-
-.form a.text {
-  color: #4070f4;
-  text-decoration: none;
-}
-
-.form a:hover {
-  text-decoration: underline;
-}
-
-.form .button {
-  margin-top: 35px;
-}
-
-.form .button input {
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  background-color: #4070f4;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.button input:hover {
-  background-color: #265df2;
-}
-
-.form .login-signup {
-  margin-top: 30px;
-  text-align: center;
-}
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+  
+    /* * {
+      box-sizing: border-box;
+    } */
+  
+    /* body {
+      background: #f6f5f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      margin: -20px 0 50px;
+    } */
+  
+    h1 {
+      font-weight: bold;
+      margin: 0;
+    }
+  
+    h2 {
+      text-align: center;
+    }
+  
+    p {
+      font-size: 14px;
+      font-weight: 100;
+      line-height: 20px;
+      letter-spacing: 0.5px;
+      margin: 20px 0 30px;
+    }
+  
+    span {
+      font-size: 12px;
+    }
+  
+    a {
+      color: #333;
+      font-size: 14px;
+      text-decoration: none;
+      margin: 15px 0;
+    }
+  
+    button {
+      border-radius: 20px;
+      border: 1px solid #FF4B2B;
+      background-color: #FF4B2B;
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 12px 45px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 80ms ease-in;
+    }
+  
+    button:active {
+      transform: scale(0.95);
+    }
+  
+    button:focus {
+      outline: none;
+    }
+  
+    button.ghost {
+      background-color: transparent;
+      border-color: #FFFFFF;
+    }
+  
+    form {
+      background-color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 50px;
+      height: 100%;
+      text-align: center;
+    }
+  
+    input {
+      background-color: #eee;
+      border: none;
+      padding: 12px 15px;
+      margin: 8px 0;
+      width: 100%;
+    }
+  
+    .container {
+      /* background-color: #fff; */
+      /* border-radius: 10px; */
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+      position: relative;
+      overflow: hidden;
+      /* width: 768px; */
+      /* margin-top: 80px; */
+      max-width: 100%;
+      height: 100vh;
+    }
+  
+    .form-container {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      transition: all 0.6s ease-in-out;
+    }
+  
+    .sign-in-container {
+      left: 0;
+      width: 50%;
+      z-index: 2;
+    }
+  
+    .container.right-panel-active .sign-in-container {
+      transform: translateX(100%);
+    }
+  
+    .sign-up-container {
+      left: 0;
+      width: 50%;
+      opacity: 0;
+      z-index: 1;
+    }
+  
+    .container.right-panel-active .sign-up-container {
+      transform: translateX(100%);
+      opacity: 1;
+      z-index: 5;
+      animation: show 0.6s;
+    }
+  
+    @keyframes show {
+  
+      0%,
+      49.99% {
+        opacity: 0;
+        z-index: 1;
+      }
+  
+      50%,
+      100% {
+        opacity: 1;
+        z-index: 5;
+      }
+    }
+  
+    .overlay-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.6s ease-in-out;
+      z-index: 100;
+    }
+  
+    .container.right-panel-active .overlay-container {
+      transform: translateX(-100%);
+    }
+  
+    .overlay {
+      background-color: #0093E9;
+      background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 0 0;
+      color: #FFFFFF;
+      position: relative;
+      left: -100%;
+      height: 100%;
+      width: 200%;
+      transform: translateX(0);
+      transition: transform 0.6s ease-in-out;
+    }
+  
+    .container.right-panel-active .overlay {
+      transform: translateX(50%);
+    }
+  
+    .overlay-panel {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 40px;
+      text-align: center;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      transform: translateX(0);
+      transition: transform 0.6s ease-in-out;
+    }
+  
+    .overlay-left {
+      transform: translateX(-20%);
+    }
+  
+    .container.right-panel-active .overlay-left {
+      transform: translateX(0);
+    }
+  
+    .overlay-right {
+      right: 0;
+      transform: translateX(0);
+    }
+  
+    .container.right-panel-active .overlay-right {
+      transform: translateX(20%);
+    }
 </style>

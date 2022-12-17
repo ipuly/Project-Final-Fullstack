@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +23,30 @@ public class KkController {
 
 	@Autowired
 	IKkService AddKkService;
-	
-	
+
 	@PostMapping("/insert")
-	public AddKk insertAddKk(@RequestBody AddKk AddKk){
+	public AddKk insertAddKk(@RequestBody AddKk AddKk) {
 		return AddKkService.insertAddKk(AddKk);
 	}
-	
+
 	@GetMapping("/getAll")
-	public List<AddKk> getAllAddKk(){
+	public List<AddKk> getAllAddKk() {
 		return AddKkService.getAllAddKk();
 	}
-	
+
 	@PutMapping("/update/{id}")
 	public AddKk updateAddKk(@PathVariable int id, @RequestBody AddKk AddKk) {
 		return AddKkService.updateAddKk(id, AddKk);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public AddKk deleteAddKk(@PathVariable int id) {
 		return AddKkService.deleteAddKk(id);
 	}
-	
+
 	@GetMapping("/getData/{id}")
-    public AddKk getKkById(@PathVariable int id) {
-        return AddKkService.getKkById(id);
-    }
+	public AddKk getKkById(@PathVariable int id) {
+		return AddKkService.getKkById(id);
+	}
+
 }

@@ -10,40 +10,49 @@ import com.example.demo.repository.IAnggotaRepository;
 import com.example.demo.service.IAnggotaService;
 
 @Service
-public class AnggotaService  implements IAnggotaService {
+public class AnggotaService implements IAnggotaService {
 
 	@Autowired
 	IAnggotaRepository anggotaRepository;
 
 	@Override
 	public AddAnggota insertAddAnggota(AddAnggota AddAnggota) {
-		// TODO Auto-generated method stub
 		return anggotaRepository.insertAddAnggota(AddAnggota);
 	}
 
 	@Override
 	public List<AddAnggota> getAllAddAnggota() {
-		// TODO Auto-generated method stub
 		return anggotaRepository.getAllAddAnggota();
 	}
 
 	@Override
 	public AddAnggota updateAddAnggota(int id, AddAnggota AddAnggota) {
-		// TODO Auto-generated method stub
 		return anggotaRepository.updateAddAnggota(id, AddAnggota);
 	}
 
 	@Override
 	public AddAnggota deleteAddAnggota(int id) {
-		// TODO Auto-generated method stub
 		return anggotaRepository.deleteAddAnggota(id);
 	}
 
-//	@Override
-//	public AddAnggota getStudent(int id) {
-//		// TODO Auto-generated method stub
-//		return anggotaRepository.getStudent(id);
-//	}
+	@Override
+	public List<AddAnggota> getAnggotaByIdKk(String id_kk) {
+		return anggotaRepository.getAnggotaByIdKk(id_kk);
+	}
 
-	
+	@Override
+	public AddAnggota updateAnggotaByIdKk(String id_kk, AddAnggota AddAnggota) {
+		return anggotaRepository.updateAnggotaByIdKk(id_kk, AddAnggota);
+	}
+
+	@Override
+	public AddAnggota getAnggota(int id) {
+		return anggotaRepository.getAnggota(id);
+	}
+
+	@Override
+	public List<AddAnggota> deleteAllAnggota(String id_kk) {
+		return anggotaRepository.deleteAllAnggota(id_kk);
+	}
+
 }

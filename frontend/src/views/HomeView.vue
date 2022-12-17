@@ -6,11 +6,6 @@
           <div class="col-sm-6">
             <h1>Dashboard</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item active">Home</li>
-            </ol>
-          </div>
         </div>
       </div>
     </section>
@@ -35,7 +30,7 @@
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title mb-3">Jumlah Penduduk</h5>
                 <div class="d-flex justify-content-between">
-                  <h2 class="card-text">0</h2>
+                  <h2 class="card-text">{{ AnggotaData.length }}</h2>
                   <h1><i class="fas fa-user"></i></h1>
                 </div>
               </div>
@@ -47,7 +42,7 @@
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title mb-3">Jumlah Pengguna</h5>
                 <div class="d-flex justify-content-between">
-                  <h2 class="card-text">0</h2>
+                  <h2 class="card-text">{{ UserData.length }}</h2>
                   <h1><i class="fas fa-user-tie"></i></h1>
                 </div>
               </div>
@@ -82,7 +77,7 @@
           </thead>
           <tbody>
             <tr>
-              <td colspan="6" class="text-center" v-if="KKData.length == 0">Tidak ada Data</td>
+              <td colspan="6" class="text-center font-weight-bold" v-if="KKData.length == 0">Tidak ada Data</td>
             </tr>
             <tr v-for="(item,index) in KKData" :key="index">
               <th scope="row">{{index+=1}}</th>
@@ -96,8 +91,8 @@
                     Detail
                   </button>
                 </router-link>
-                <router-link to="/">
-                  <button class="btn btn-sm btn-danger" @click="deleteKKFunction(item.id, item.nomor_kk)">
+                <router-link to="/home">
+                  <button class="btn btn-sm btn-danger" @click="deleteKKFunction(item.id)">
                     Delete
                   </button>
                 </router-link>
@@ -113,22 +108,26 @@
 
 <script>
 // @ is an alias to /src
-import KKServices from '@/services/KKServices';
+import eKtpServices from '@/services/eKtpServices';
 
 export default {
-  name: 'HomeView',
+  name: 'HomePage',
   data() {
     return {
       KKData: [],
+      AnggotaData: [],
+      UserData: [],
       success: false,
     };
   },
   mounted() {
     this.getKK();
+    this.getAnggota();
+    this.getUser();
   },
   methods: {
     getKK() {
-      KKServices.getAll()
+      eKtpServices.getAllKK()
         .then((response) => {
           this.KKData = response.data;
         })
@@ -136,16 +135,36 @@ export default {
           console.log(e);
         });
     },
-    deleteKKFunction(id, nomor_kk) {
-      if (confirm(`Apakah anda yakin hapus data ${nomor_kk} ?`)) {
-        KKServices.deleteKK(id)
+    getAnggota() {
+      eKtpServices.getAllAnggota()
+        .then((response) => {
+          this.AnggotaData = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    getUser() {
+      eKtpServices.getAllUser()
+        .then((response) => {
+          this.UserData = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    deleteKKFunction(id) {
+      if (confirm(`Apakah anda yakin hapus data ?`)) {
+        eKtpServices.deleteKK(id)
           .then(response => {
             console.log(response.data);
+            eKtpServices.deleteAllAnggota(id)
+            .then(location.reload())
           })
           .catch(e => {
             console.log(e);
           })
-          location.reload();
+
         this.success = true;
       } else {
         alert("Hapus dibatalkan!")

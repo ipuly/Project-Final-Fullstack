@@ -10,9 +10,7 @@
           <div class="row mb-2">
             <div class="col-sm-6 ml-2">
               <h1>Tambah Kartu Keluarga</h1>
-              <router-link to="/">
-                <button class="btn btn-primary mt-3" type="button">Back</button>
-              </router-link>
+                <button class="btn btn-primary mt-3" type="button" @click="$router.back()">Back</button>
             </div>
           </div>
         </div>
@@ -90,7 +88,7 @@
 </template>
 
 <script>
-import KKServices from '@/services/KKServices';
+import eKtpServices from '@/services/eKtpServices';
 
 export default {
   data() {
@@ -112,8 +110,8 @@ export default {
   methods: {
     inputKK() {
       let data = this.KKData;
-      KKServices
-        .create(data)
+      eKtpServices
+        .createKK(data)
         .then(
           this.success = true)
         .catch((e) => {

@@ -1,10 +1,14 @@
 <template>
-    <div class="card-body border">
-        <h5 class="card-title">Success!</h5>
-        <p class="card-text">Data has been <strong> {{ messages }}! </strong></p>
-        <router-link to="/" v-if="messages == 'Inputed'" class="btn btn-primary">Close</router-link>
-        <router-link to="/" v-else-if="messages == 'Updated'" class="btn btn-primary">Close</router-link>
-        <button v-else class="btn btn-primary" @click="reloadPage">Close</button>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-header">Success!</h5>
+                <p class="card-body">Data has been <strong> {{ messages }}! </strong></p>
+                <button @click="refresh()" v-if="messages == 'Inputed'" class="btn btn-primary">Close</button>
+                <button @click="refresh()" v-else-if="messages == 'Updated'" class="btn btn-primary">Close</button>
+                <button @click="refresh()" v-else class="btn btn-primary" >Close</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -17,18 +21,17 @@ export default {
     },
     methods: {
         ubahMessages() {
-            let route = this.$route.fullPath;
-            if (route === "/add") {
+            let route = this.$route.name;
+            if (route === "addPage") {
                 this.messages = "Inputed";
-            } else if (route === "/") {
-                this.messages = "Deleted";
             } else {
                 this.messages = "Updated";
             }
         },
-        reloadPage() {
-            location.reload();
+        refresh(){
+            location.reload()
         }
+        
     },
     mounted() {
         this.ubahMessages();

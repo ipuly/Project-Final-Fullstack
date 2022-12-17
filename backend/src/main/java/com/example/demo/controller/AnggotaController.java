@@ -22,30 +22,45 @@ import com.example.demo.service.IAnggotaService;
 public class AnggotaController {
 	@Autowired
 	IAnggotaService AddAnggotaService;
-	
-	
+
 	@PostMapping("/insert")
-	public AddAnggota insertAddAnggota(@RequestBody AddAnggota AddAnggota){
+	public AddAnggota insertAddAnggota(@RequestBody AddAnggota AddAnggota) {
 		return AddAnggotaService.insertAddAnggota(AddAnggota);
 	}
-	
+
 	@GetMapping("/getAll")
-	public List<AddAnggota> getAllAddAnggota(){
+	public List<AddAnggota> getAllAddAnggota() {
 		return AddAnggotaService.getAllAddAnggota();
 	}
-	
+
 	@PutMapping("/update/{id}")
 	public AddAnggota updateAddAnggota(@PathVariable int id, @RequestBody AddAnggota AddAnggota) {
 		return AddAnggotaService.updateAddAnggota(id, AddAnggota);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public AddAnggota deleteAddAnggota(@PathVariable int id) {
 		return AddAnggotaService.deleteAddAnggota(id);
 	}
-	
-//	@GetMapping("/student/{id}")
-//	public AddAnggota getAddAnggota(@PathVariable int id) {
-//		return AddAnggotaService.getStudent(id);
-//	}
+
+	@DeleteMapping("/deleteAllAnggota/{id_kk}")
+	public List<AddAnggota> deleteAllAnggota(@PathVariable String id_kk) {
+		return AddAnggotaService.deleteAllAnggota(id_kk);
+	}
+
+	@GetMapping("/getAnggota/{id}")
+	public AddAnggota getAnggotaById(@PathVariable int id) {
+		return AddAnggotaService.getAnggota(id);
+	}
+
+	@GetMapping("/getIdKk/{id_kk}")
+	public List<AddAnggota> getAnggotaByIdKk(@PathVariable String id_kk) {
+		return AddAnggotaService.getAnggotaByIdKk(id_kk);
+	}
+
+	@PutMapping("/updateKK/{id_kk}")
+	public AddAnggota updateAnggotaByIdKk(@PathVariable String id_kk,
+			@RequestBody AddAnggota AddAnggota) {
+		return AddAnggotaService.updateAnggotaByIdKk(id_kk, AddAnggota);
+	}
 }

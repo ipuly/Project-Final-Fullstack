@@ -10,13 +10,11 @@
           <div class="row mb-2">
             <div class="col-sm-6 ml-2">
               <h1>Detail Kartu Keluarga</h1>
-              <router-link to="/">
+              <router-link to="/home">
                 <button class="btn btn-primary mt-3 mr-2" type="button">Back</button>
               </router-link>
-              <!-- <router-link to="/">   -->
                 <button class="btn btn-success mt-3 mr-2" type="button" v-show="hideButton" @click="updateFunction()">Update Kartu Keluarga</button>
-              <!-- </router-link> -->
-              <router-link to="/">
+              <router-link :to="{ name: 'ListPage' }">
                 <button class="btn btn-info mt-3" type="button">Lihat Kartu Keluarga</button>
               </router-link>
             </div>
@@ -88,7 +86,7 @@
               </div>
             </div>
             <span class="btn btn-danger mr-2" @click="refreshFunction()" v-show="updateButton">Cancel</span>
-            <button class="btn btn-success" type="submit" v-show="updateButton">Update</button>
+            <button class="btn btn-success" type="submit" v-show="updateButton" >Update</button>
           </form>
         </div>
       </section>
@@ -97,7 +95,7 @@
 </template>
 
 <script>
-import KKServices from '@/services/KKServices';
+import eKtpServices from '@/services/eKtpServices';
 
 export default {
   data(){
@@ -113,6 +111,7 @@ export default {
         rt: null,
         rw: null,
       },
+      AnggotaData: [],
       success: false,
       updateButton: false,
       hideButton: true,
@@ -134,7 +133,7 @@ export default {
     updateKK() {
       let data = this.KKData;
       let id = this.$route.params.id;
-      KKServices.updateKK(id, data)
+      eKtpServices.updateKK(id, data)
         .then((response) => {
           console.log(response.data);
           this.success = true;
@@ -145,7 +144,7 @@ export default {
     },
     getKKById() {
       let id = this.$route.params.id;
-      KKServices.getKKById(id)
+      eKtpServices.getKKById(id)
         .then((response) => {
           this.KKData = response.data;
           console.log(this.KKData);
@@ -154,6 +153,7 @@ export default {
           console.log(e);
         });
     },
+    
   },
   mounted() {
     this.getKKById();
