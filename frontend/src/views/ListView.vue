@@ -144,6 +144,7 @@
                                 </div>
                             </div>
                         </div>
+                        <p v-show="checkNIK" class="font-weight-bold" style="color: red;">NIK sudah terdaftar!</p>
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
                 </div>
@@ -176,6 +177,7 @@ export default {
             },
             success: false,
             addAnggota: false,
+            checkNIK: false,
         };
     },
     mounted() {
@@ -186,10 +188,14 @@ export default {
             let data = this.AnggotaInput;
             eKtpServices
                 .createAnggota(data)
-                .then(
-                    this.success = true)
+                .then((response) => {
+                    console.log(response.data);
+                    this.success = true
+                })
                 .catch((e) => {
-                    console.log(e);
+                    if (e.response.data.trace.includes("Duplicate entry")) {
+                        this.checkNIK = true
+                    }
                 });
         },
         tambahAnggota(){

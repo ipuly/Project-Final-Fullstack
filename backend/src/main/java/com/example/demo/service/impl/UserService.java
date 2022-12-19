@@ -16,8 +16,12 @@ public class UserService implements IUserService {
 
 	@Override
 	public AddUser insertAddUser(AddUser AddUser) {
-		// TODO Auto-generated method stub
 		return userRepository.insertAddUser(AddUser);
+	}
+
+	@Override
+	public AddUser getUser(String email, String password) {
+		return userRepository.getUser(email, password);
 	}
 
 	@Override
@@ -37,4 +41,5 @@ public class UserService implements IUserService {
 		// TODO Auto-generated method stub
 		return userRepository.deleteAddUser(id);
 	}
+
 }

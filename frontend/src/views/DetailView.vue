@@ -85,6 +85,7 @@
                 </div>
               </div>
             </div>
+            <p v-show="checkNoKk" class="font-weight-bold" style="color: red;">Nomor KK sudah terdaftar!</p>
             <span class="btn btn-danger mr-2" @click="refreshFunction()" v-show="updateButton">Cancel</span>
             <button class="btn btn-success" type="submit" v-show="updateButton" >Update</button>
           </form>
@@ -116,6 +117,7 @@ export default {
       updateButton: false,
       hideButton: true,
       isDisabled: true,
+      checkNoKk: false,
     }
   },
   methods: {
@@ -139,7 +141,9 @@ export default {
           this.success = true;
         })
         .catch((e) => {
-          console.log(e);
+          if (e.response.data.trace.includes("Duplicate entry")) {
+            this.checkNoKk = true
+          }
         });
     },
     getKKById() {

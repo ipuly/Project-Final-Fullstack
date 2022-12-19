@@ -77,7 +77,7 @@
           </thead>
           <tbody>
             <tr>
-              <td colspan="6" class="text-center font-weight-bold" v-if="KKData.length == 0">Tidak ada Data</td>
+              <td colspan="6" class="text-center font-weight-bold" v-if="KKData.length == 0">Tidak ada Data </td>
             </tr>
             <tr v-for="(item,index) in KKData" :key="index">
               <th scope="row">{{index+=1}}</th>

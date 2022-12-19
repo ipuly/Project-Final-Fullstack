@@ -79,6 +79,7 @@
                 </div>
               </div>
             </div>
+            <p v-show="checkNoKk" class="font-weight-bold" style="color: red;">Nomor KK sudah terdaftar!</p>
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
           </form>
         </div>
@@ -105,6 +106,7 @@ export default {
         rw: null,
       },
       success: false,
+      checkNoKk: false,
     };
   },
   methods: {
@@ -112,11 +114,15 @@ export default {
       let data = this.KKData;
       eKtpServices
         .createKK(data)
-        .then(
-          this.success = true)
+        .then((response) => {
+          console.log(response.data);
+          this.success = true
+        })
         .catch((e) => {
-          console.log(e);
-        });
+          if (e.response.data.trace.includes("Duplicate entry")) {
+            this.checkNoKk = true
+          }
+      });
     },
   },
 };

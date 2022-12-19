@@ -1,6 +1,8 @@
 import http from '../http-common';
 
 class eKtpServices {
+
+  // Kartu Keluarga Service
   createKK(data) {
     return http.post("/kk/insert", data);
   }
@@ -21,6 +23,7 @@ class eKtpServices {
     return http.get(`/kk/getData/${id}`)
   }
 
+  // Anggota Keluarga Service
   createAnggota(data) {
     return http.post("/anggota/insert", data);
   }
@@ -45,32 +48,25 @@ class eKtpServices {
     return http.get(`/anggota/getAnggota/${id}`)
   }
 
-  createUser(data) {
-    return http.post("/user/insert", data);
-  }
-
-  getAllUser() {
-    return http.get("/user/getAll");
-  }
-
-  updateUser(id, data) {
-    return http.put(`/user/update/${id}`, data);
-  }
-
-  deleteUser(id) {
-    return http.delete(`/user/delete/${id}`);
-  }
-
-  getUserById(id) {
-    return http.get(`/user/getData/${id}`)
-  }
-
   getAnggotaByKk(id_kk) {
     return http.get(`/anggota/getIdKk/${id_kk}`)
   }
 
   updateAnggotaByKk(id_kk, data) {
     return http.put(`/anggota/updateKK/${id_kk}`, data);
+  }
+
+  // User Service
+  registUser(data) {
+    return http.post("/user/insert", data);
+  }
+
+  loginUser(data) {
+    return http.post("/user/getUser", data);
+  }
+
+  getAllUser() {
+    return http.get("/user/getAllUser");
   }
 }
 

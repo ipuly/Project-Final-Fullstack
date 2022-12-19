@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,10 @@ public class AddKk {
 	private String kabupaten_kota;
 	private String kecamatan;
 	private int kode_pos;
+
+	@Column(unique = true)
 	private int nomor_kk;
+
 	private String provinsi;
 	private int rt;
 	private int rw;
