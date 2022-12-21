@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.config.productionTip = false
 
@@ -31,6 +32,8 @@ Vue.component('AppNavBar', AppNavBar)
 Vue.component('AppSideBar', AppSideBar)
 Vue.component('AppFooter', AppFooter)
 Vue.component('AppSuccess', AppSuccess)
+
+Vue.use(VueSweetalert2);
 
 new Vue({
   router,

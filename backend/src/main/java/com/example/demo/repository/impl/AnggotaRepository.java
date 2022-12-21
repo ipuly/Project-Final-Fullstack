@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.model.AddAnggota;
+import com.example.demo.model.AnggotaModel;
 import com.example.demo.repository.IAnggotaRepository;
 
 @Repository
@@ -17,7 +17,7 @@ public class AnggotaRepository implements IAnggotaRepository {
 	JdbcTemplate jdbcTemplate;
 
 	@Override
-	public AddAnggota insertAddAnggota(AddAnggota addanggota) {
+	public AnggotaModel insertAddAnggota(AnggotaModel addanggota) {
 		// TODO Auto-generated method stub
 		String query = "INSERT INTO tb_anggota_keluarga(agama, id_kk, jenis_kelamin, kepala_keluarga, nama, nik, pendidikan, tanggal_lahir, tempat_lahir) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -29,14 +29,14 @@ public class AnggotaRepository implements IAnggotaRepository {
 	}
 
 	@Override
-	public List<AddAnggota> getAllAddAnggota() {
+	public List<AnggotaModel> getAllAddAnggota() {
 		// TODO Auto-generated method stub
 		String query = "SELECT * FROM tb_anggota_keluarga";
-		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AddAnggota.class));
+		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AnggotaModel.class));
 	}
 
 	@Override
-	public AddAnggota updateAddAnggota(int id, AddAnggota addanggota) {
+	public AnggotaModel updateAddAnggota(int id, AnggotaModel addanggota) {
 		// TODO Auto-generated method stub
 		String query = "UPDATE tb_anggota_keluarga SET agama = ?, id_kk = ?, jenis_kelamin = ?, kepala_keluarga = ?, "
 				+ "nama = ?, nik = ?, pendidikan = ?, tanggal_lahir = ?, tempat_lahir = ? WHERE id = ?";
@@ -50,10 +50,10 @@ public class AnggotaRepository implements IAnggotaRepository {
 	}
 
 	@Override
-	public AddAnggota deleteAddAnggota(int id) {
+	public AnggotaModel deleteAddAnggota(int id) {
 		// TODO Auto-generated method stub
 		String query = "SELECT * FROM tb_anggota_keluarga WHERE id = ?";
-		var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(AddAnggota.class), id);
+		var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(AnggotaModel.class), id);
 
 		query = "DELETE FROM tb_anggota_keluarga WHERE id = ?";
 		jdbcTemplate.update(query, id);
@@ -62,9 +62,9 @@ public class AnggotaRepository implements IAnggotaRepository {
 	}
 
 	@Override
-	public List<AddAnggota> deleteAllAnggota(String id_kk) {
+	public List<AnggotaModel> deleteAllAnggota(String id_kk) {
 		String query = "SELECT * FROM tb_anggota_keluarga WHERE id_kk = ?";
-		var result = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AddAnggota.class), id_kk);
+		var result = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AnggotaModel.class), id_kk);
 
 		query = "DELETE FROM tb_anggota_keluarga WHERE id_kk = ?";
 		jdbcTemplate.update(query, id_kk);
@@ -73,19 +73,19 @@ public class AnggotaRepository implements IAnggotaRepository {
 	}
 
 	@Override
-	public AddAnggota getAnggota(int id) {
+	public AnggotaModel getAnggota(int id) {
 		String query = "SELECT * FROM tb_anggota_keluarga WHERE id = ?";
-		return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(AddAnggota.class), id);
+		return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(AnggotaModel.class), id);
 	}
 
 	@Override
-	public List<AddAnggota> getAnggotaByIdKk(String id_kk) {
+	public List<AnggotaModel> getAnggotaByIdKk(String id_kk) {
 		String query = "SELECT * FROM tb_anggota_keluarga WHERE id_kk = ?";
-		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AddAnggota.class), id_kk);
+		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AnggotaModel.class), id_kk);
 	}
 
 	@Override
-	public AddAnggota updateAnggotaByIdKk(String id_kk, AddAnggota AddAnggota) {
+	public AnggotaModel updateAnggotaByIdKk(String id_kk, AnggotaModel AddAnggota) {
 		String query = "UPDATE tb_anggota_keluarga SET agama = ?, id_kk = ?, jenis_kelamin = ?, kepala_keluarga = ?, "
 				+ "nama = ?, nik = ?, pendidikan = ?, tanggal_lahir = ?, tempat_lahir = ? WHERE id = ?";
 

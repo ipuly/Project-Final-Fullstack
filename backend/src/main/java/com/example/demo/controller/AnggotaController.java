@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.AddAnggota;
+import com.example.demo.model.AnggotaModel;
 import com.example.demo.service.IAnggotaService;
 
 @RestController
@@ -24,43 +24,43 @@ public class AnggotaController {
 	IAnggotaService AddAnggotaService;
 
 	@PostMapping("/insert")
-	public AddAnggota insertAddAnggota(@RequestBody AddAnggota AddAnggota) {
+	public AnggotaModel insertAddAnggota(@RequestBody AnggotaModel AddAnggota) {
 		return AddAnggotaService.insertAddAnggota(AddAnggota);
 	}
 
 	@GetMapping("/getAll")
-	public List<AddAnggota> getAllAddAnggota() {
+	public List<AnggotaModel> getAllAddAnggota() {
 		return AddAnggotaService.getAllAddAnggota();
 	}
 
 	@PutMapping("/update/{id}")
-	public AddAnggota updateAddAnggota(@PathVariable int id, @RequestBody AddAnggota AddAnggota) {
+	public AnggotaModel updateAddAnggota(@PathVariable int id, @RequestBody AnggotaModel AddAnggota) {
 		return AddAnggotaService.updateAddAnggota(id, AddAnggota);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public AddAnggota deleteAddAnggota(@PathVariable int id) {
+	public AnggotaModel deleteAddAnggota(@PathVariable int id) {
 		return AddAnggotaService.deleteAddAnggota(id);
 	}
 
 	@DeleteMapping("/deleteAllAnggota/{id_kk}")
-	public List<AddAnggota> deleteAllAnggota(@PathVariable String id_kk) {
+	public List<AnggotaModel> deleteAllAnggota(@PathVariable String id_kk) {
 		return AddAnggotaService.deleteAllAnggota(id_kk);
 	}
 
 	@GetMapping("/getAnggota/{id}")
-	public AddAnggota getAnggotaById(@PathVariable int id) {
+	public AnggotaModel getAnggotaById(@PathVariable int id) {
 		return AddAnggotaService.getAnggota(id);
 	}
 
 	@GetMapping("/getIdKk/{id_kk}")
-	public List<AddAnggota> getAnggotaByIdKk(@PathVariable String id_kk) {
+	public List<AnggotaModel> getAnggotaByIdKk(@PathVariable String id_kk) {
 		return AddAnggotaService.getAnggotaByIdKk(id_kk);
 	}
 
 	@PutMapping("/updateKK/{id_kk}")
-	public AddAnggota updateAnggotaByIdKk(@PathVariable String id_kk,
-			@RequestBody AddAnggota AddAnggota) {
+	public AnggotaModel updateAnggotaByIdKk(@PathVariable String id_kk,
+			@RequestBody AnggotaModel AddAnggota) {
 		return AddAnggotaService.updateAnggotaByIdKk(id_kk, AddAnggota);
 	}
 }

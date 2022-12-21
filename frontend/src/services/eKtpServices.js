@@ -68,6 +68,22 @@ class eKtpServices {
   getAllUser() {
     return http.get("/user/getAllUser");
   }
+
+  getEmail(email) {
+    return http.post("/user/getEmail", email);
+  }
+
+  deleteUser(id) {
+    return http.delete(`/user/delete/${id}`);
+  }
+
+  updateUser(id, data) {
+    return http.put(`/user/updateUser/${id}`, data);
+  }
+
+  getUserById(id) {
+    return http.get(`/user/getUserById/${id}`)
+  }
 }
 
 export default new eKtpServices();

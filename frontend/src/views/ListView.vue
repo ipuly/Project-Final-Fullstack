@@ -1,25 +1,32 @@
 <template>
     <div class="home">
-        
-        <div class="container" v-show="success">
+        <section class="content-header" v-show="!addAnggota">
+            <div class="container-fluid">
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <h1>Daftar Anggota Keluarga</h1>
+                    </div>
+                </div>
+                <div  v-show="!success">
+                    <button class="btn btn-primary mr-2" @click="$router.back()" type="button">Back</button>
+                    <button class="btn btn-info" type="button" @click.prevent="tambahAnggota()">Tambah Anggota
+                        Keluarga</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="content-header" v-show="success">
+            <div class="container-fluid">
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <h1>Daftar Anggota Keluarga</h1>
+                    </div>
+                </div>
+            </div>
             <app-success />
         </div>
 
         <div v-show="!success">
-            <section class="content-header" v-show="!addAnggota">
-                <div class="container-fluid">
-                    <div class="row mb-3">
-                        <div class="col-sm-6">
-                            <h1>Daftar Anggota Keluarga</h1>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary mr-2" @click="$router.back()" type="button">Back</button>
-                        <button class="btn btn-info" type="button" @click.prevent="tambahAnggota()" >Tambah Anggota Keluarga</button>
-                    </div>
-                </div>
-            </section>
-
             <section class="content-header" v-show="addAnggota">
                 <div class="container-fluid">
                     <div class="row mb-3">
@@ -51,13 +58,13 @@
                                 <td colspan="6" class="text-center" v-if="AnggotaData.length == 0">Tidak ada Data</td>
                             </tr>
                             <tr v-for="(item, index) in AnggotaData" :key="index">
-                                <th scope="row">{{index+=1}}</th>
+                                <th scope="row">{{ index += 1 }}</th>
                                 <td>{{ item.nik }}</td>
                                 <td>{{ item.nama }}</td>
                                 <td>{{ item.jenis_kelamin }}</td>
                                 <td>{{ item.kepala_keluarga }}</td>
                                 <td class="d-flex">
-                                    <router-link :to="{ name : 'DetailAnggotaPage', params:{id_kk:item.id}}">
+                                    <router-link :to="{ name: 'DetailAnggotaPage', params: { id_kk: item.id } }">
                                         <button class="btn btn-sm btn-primary mr-2 text-white">
                                             Detail
                                         </button>
@@ -81,8 +88,8 @@
                                 <div class="form-group row">
                                     <label for="nik" class="col-md-6 col-sm-2 col-form-label">NIK</label>
                                     <div class="col-md-6 col-sm-10">
-                                        <input type="number" class="form-control" id="nik" name="nik"
-                                            placeholder="NIK" v-model="AnggotaInput.nik" />
+                                        <input type="number" class="form-control" id="nik" name="nik" placeholder="NIK"
+                                            v-model="AnggotaInput.nik" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -93,9 +100,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="jenis_kelamin" class="col-md-6 col-sm-2 col-form-label">Jenis Kelamin</label>
+                                    <label for="jenis_kelamin" class="col-md-6 col-sm-2 col-form-label">Jenis
+                                        Kelamin</label>
                                     <div class="col-md-6 col-sm-10">
-                                        <select id="jenis_kelamin" v-model="AnggotaInput.jenis_kelamin" class="form-control" name="jenis_kelamin">
+                                        <select id="jenis_kelamin" v-model="AnggotaInput.jenis_kelamin"
+                                            class="form-control" name="jenis_kelamin">
                                             <option disabled selected label="Pilih Jenis Kelamin"></option>
                                             <option id="pria">Pria</option>
                                             <option id="wanita">Wanita</option>
@@ -103,16 +112,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="tempat_lahir" class="col-md-6 col-sm-2 col-form-label">Tempat Lahir</label>
+                                    <label for="tempat_lahir" class="col-md-6 col-sm-2 col-form-label">Tempat
+                                        Lahir</label>
                                     <div class="col-md-6 col-sm-10">
-                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir"
-                                            v-model="AnggotaInput.tempat_lahir" />
+                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                            placeholder="Tempat Lahir" v-model="AnggotaInput.tempat_lahir" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group row">
-                                    <label for="tanggal_lahir" class="col-md-6 col-sm-2 col-form-label">Tanggal Lahir</label>
+                                    <label for="tanggal_lahir" class="col-md-6 col-sm-2 col-form-label">Tanggal
+                                        Lahir</label>
                                     <div class="col-md-6 col-sm-10">
                                         <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
                                             v-model="AnggotaInput.tanggal_lahir" />
@@ -126,16 +137,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="pendidikan" class="col-md-6 col-sm-2 col-form-label">Pendidikan Terakhir</label>
+                                    <label for="pendidikan" class="col-md-6 col-sm-2 col-form-label">Pendidikan
+                                        Terakhir</label>
                                     <div class="col-md-6 col-sm-10">
                                         <input type="text" class="form-control" id="pendidikan" name="pendidikan"
                                             placeholder="Pendidikan Terakhir" v-model="AnggotaInput.pendidikan" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="kepala_keluarga" class="col-md-6 col-sm-2 col-form-label">Kepala Keluarga</label>
+                                    <label for="kepala_keluarga" class="col-md-6 col-sm-2 col-form-label">Kepala
+                                        Keluarga</label>
                                     <div class="col-md-6 col-sm-10">
-                                        <select id="kepala_keluarga" v-model="AnggotaInput.kepala_keluarga" class="form-control" name="kepala_keluarga" required>
+                                        <select id="kepala_keluarga" v-model="AnggotaInput.kepala_keluarga"
+                                            class="form-control" name="kepala_keluarga" required>
                                             <option disabled selected label="Pilih Status"></option>
                                             <option id="yes">Yes</option>
                                             <option id="no">No</option>
@@ -145,7 +159,7 @@
                             </div>
                         </div>
                         <p v-show="checkNIK" class="font-weight-bold" style="color: red;">NIK sudah terdaftar!</p>
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3" @click="addIdKK">Submit</button>
                     </form>
                 </div>
             </section>
@@ -157,6 +171,7 @@
 <script>
 // @ is an alias to /src
 import eKtpServices from '@/services/eKtpServices';
+import Swal from 'sweetalert2'
 
 export default {
     name: 'ListPage',
@@ -173,7 +188,6 @@ export default {
                 tanggal_lahir: null,
                 pendidikan: null,
                 kepala_keluarga: null,
-                id_kk: this.$route.params.id,
             },
             success: false,
             addAnggota: false,
@@ -198,7 +212,12 @@ export default {
                     }
                 });
         },
-        tambahAnggota(){
+
+        addIdKK() {
+            this.AnggotaInput.id_kk = this.$route.params.id;
+        },
+
+        tambahAnggota() {
             this.addAnggota = true;
         },
         listAnggota() {
@@ -214,18 +233,37 @@ export default {
                 });
         },
         deleteAnggotaFunction(id, nik) {
-            if (confirm(`Apakah anda yakin hapus data ${nik} ?`)) {
-                eKtpServices.deleteAnggota(id)
-                    .then(response => {
-                        console.log(response.data);
-                    })
-                    .catch(e => {
-                        console.log(e);
-                    })
-                location.reload();
-            } else {
-                alert("Hapus dibatalkan!")
-            }
+            Swal.fire({
+                title: "Anda Yakin Ingin Menghapus " + `${nik}` + "?",
+                text: "Klik Batal Untuk Membatalkan Penghapusan",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Hapus"
+            }).then(result => {
+                if (result.value) {
+                    eKtpServices.deleteAnggota(id)
+                        .then(response => {
+                            console.log(response.data);
+                            Swal.fire(
+                                "Terhapus",
+                                "Data Anda Sudah Tehapus",
+                                "success"
+                            ).then(() => {
+                                location.reload();
+                            });
+                        })
+                        .catch(e => {
+                            console.log(e);
+                            Swal.fire(
+                                "Gagal",
+                                "Data Gagal Terhapus",
+                                "warning"
+                            );
+                        })
+                }
+            })
         },
         getAnggotaByKk() {
             let id_kk = this.$route.params.id;

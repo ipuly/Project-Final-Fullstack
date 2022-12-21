@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.model.AddKk;
+import com.example.demo.model.KkModel;
 import com.example.demo.repository.IKkRepository;
 
 @Repository
@@ -17,7 +17,7 @@ public class KkRepository implements IKkRepository {
 	JdbcTemplate jdbcTemplate;
 
 	@Override
-	public AddKk insertAddKk(AddKk addkk) {
+	public KkModel insertAddKk(KkModel addkk) {
 		String query = "INSERT INTO tb_kartu_keluarga(alamat, desa_kelurahan, kabupaten_kota, kecamatan, kode_pos, nomor_kk, provinsi, rt, rw) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(query,
@@ -28,13 +28,13 @@ public class KkRepository implements IKkRepository {
 	}
 
 	@Override
-	public List<AddKk> getAllAddKk() {
+	public List<KkModel> getAllAddKk() {
 		String query = "SELECT * FROM tb_kartu_keluarga";
-		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(AddKk.class));
+		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(KkModel.class));
 	}
 
 	@Override
-	public AddKk updateAddKk(int id, AddKk addkk) {
+	public KkModel updateAddKk(int id, KkModel addkk) {
 		String query = "UPDATE tb_kartu_keluarga SET alamat = ?, desa_kelurahan = ?, kabupaten_kota = ?, kecamatan = ?, "
 				+ "kode_pos = ?, nomor_kk = ?, provinsi = ?, rt = ?, rw = ? WHERE id = ?";
 
@@ -47,10 +47,10 @@ public class KkRepository implements IKkRepository {
 	}
 
 	@Override
-	public AddKk deleteAddKk(int id) {
+	public KkModel deleteAddKk(int id) {
 		// TODO Auto-generated method stub
 		String query = "SELECT * FROM tb_kartu_keluarga WHERE id = ?";
-		var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(AddKk.class), id);
+		var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(KkModel.class), id);
 
 		query = "DELETE FROM tb_kartu_keluarga WHERE id = ?";
 		jdbcTemplate.update(query, id);
@@ -59,8 +59,8 @@ public class KkRepository implements IKkRepository {
 	}
 
 	@Override
-	public AddKk getKkById(int id) {
+	public KkModel getKkById(int id) {
 		String query = "SELECT * FROM tb_kartu_keluarga WHERE id = ?";
-		return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(AddKk.class), id);
+		return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(KkModel.class), id);
 	}
 }

@@ -1,47 +1,41 @@
 <template>
   <body>
-    <div class="container" v-show="success">
-      <app-success />
-    </div>
+    <ul class="background">
+      <div v-show="success">
+        <app-success />
+      </div>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    
+
     <div class="container" id="container" v-show="!success">
       <div class="form-container sign-up-container">
         <form action="" @submit.prevent="registUser">
           <h1>Create Account</h1>
-          <input 
-            v-model="userData.nama"
-            id="nama"
-            name="nama"
-            class="form-control" 
-            type="text" 
-            placeholder="Name" 
-            required
-          />
-          <input
-            v-model="userData.email"
-            id="email"
-            name="email" 
-            class="form-control"
-            type="email" 
-            placeholder="Email" 
-            required
-          />
-          <p v-show="check" class="font-weight-bold" style="color: red;">Email sudah terdaftar!</p>
-          <input 
-            v-model="userData.password"
-            id="password"
-            name="password"
-            class="form-control" 
-            type="password" 
-            placeholder="Password" 
-            required
-          />
-          <input 
-            v-model="userData.password2" 
-            class="form-control" 
-            type="password" 
-            placeholder="Password" 
-            required
-          />
+          <input v-model="userData.nama" id="nama" name="nama" class="form-control" type="text" placeholder="Name"
+            required />
+          <input v-model="userData.email" id="email" name="email" class="form-control" type="email" placeholder="Email"
+            required />
+          <p v-show="checkEmail" class="font-weight-bold" style="color: red;">Email sudah terdaftar!</p>
+          <input v-if="showPasswordRegister" type="text" class="form-control" placeholder="Password"
+            v-model="userData.password" />
+          <input v-else type="password" class="form-control" placeholder="Password" v-model="userData.password">
+          <div class="input-group">
+            <input v-if="showPasswordRegister" type="text" class="form-control" placeholder="Re Password"
+              v-model="userData.password2" required />
+            <input v-else type="password" class="form-control" placeholder=" Re Password" v-model="userData.password2"
+              required>
+            <div class="input-group-append" @click="toggleShowRegister">
+              <div class="icon is-small is-right button-showHide">
+                <i class="fas" :class="{ 'fa-eye-slash': showPasswordRegister, 'fa-eye': !showPasswordRegister }"></i>
+              </div>
+            </div>
+          </div>
           <p v-show="checkPassword" class="font-weight-bold" style="color: red;">Password tidak sama!</p>
           <button type="submit">Daftar</button>
         </form>
@@ -49,29 +43,23 @@
       <div class="form-container sign-in-container">
         <form action="" @submit.prevent="loginUser">
           <h1>Login</h1>
-          <input 
-            v-model="loginData.email"
-            class="form-control" 
-            name="email" 
-            id="email_login" 
-            type="email" 
-            placeholder="Email" 
-            required
-          />
-          <input 
-            v-model="loginData.password"
-            class="form-control" 
-            name="password" 
-            id="password_login" 
-            type="password" 
-            placeholder="Password" 
-            required
-          />
-          <!-- <span>
-            <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
-          </span> -->
-          <p v-show="check" class="font-weight-bold" style="color: red;">Email atau Password salah!</p>
+          <input v-model="loginData.email" class="form-control" name="email" id="email_login" type="email"
+            placeholder="Email" required />
+          <div class="input-group">
+            <input v-if="showPasswordLogin" type="text" class="form-control" placeholder="Password"
+              v-model="loginData.password" required />
+            <input v-else type="password" class="form-control" placeholder="Password" v-model="loginData.password"
+              required>
+
+            <div class="input-group-append" @click="toggleShowLogin">
+              <div class="icon is-small is-right button-showHide">
+                <i class="fas" :class="{ 'fa-eye-slash': showPasswordLogin, 'fa-eye': !showPasswordLogin }"></i>
+              </div>
+            </div>
+          </div>
+          <p v-show="checkLogin" class="font-weight-bold" style="color: red;">Email atau Password salah!</p>
           <button type="submit">Login</button>
+
         </form>
       </div>
       <div class="overlay-container">
@@ -79,7 +67,7 @@
           <div class="overlay-panel overlay-left">
             <img src="@/assets/logo.png" class="img-fluid" width="200px" alt="eKTP Logo">
             <h1>Register</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <p>Login kalau udah punya ngab.</p>
             <button class="ghost" id="signIn">Sign In</button>
           </div>
           <div class="overlay-panel overlay-right">
@@ -91,7 +79,7 @@
         </div>
       </div>
     </div>
-    
+
   </body>
 </template>
 
@@ -107,48 +95,58 @@ export default {
       },
       userData: {
         nama: null,
-        email: null,
+        email: "",
         password: null,
         password2: null,
       },
       success: false,
-      check: false,
+      checkLogin: false,
+
+      checkEmail: false,
       checkPassword: false,
+
+      showPasswordLogin: false,
+      showPasswordRegister: false,
     };
   },
 
   methods: {
-    onClickTop() {
-      this.$notify(
-        {
-          group: "top",
-          title: "Success",
-          text: "Your account was registered!"
-        },
-        4000
-      );
+    toggleShowLogin() {
+      this.showPasswordLogin = !this.showPasswordLogin;
+    },
+    toggleShowRegister() {
+      this.showPasswordRegister = !this.showPasswordRegister;
     },
     registUser() {
-      if (this.userData.password2 == this.userData.password) {
-        let data = this.userData;
-        eKtpServices
-          .registUser(data)
-          .then((response) => {
-            console.log(response.data);
-            this.success = true
-          })
-          .catch((e) => {
-            console.log(e)
-            if (e.response.data.trace.includes("Duplicate entry")) {
-              this.check = true
-            }
-          });
-      } else {
-        this.checkPassword = true
+      this.checkPassword = false;
+      this.checkEmail = false;
+      let password = false;
+      let email = false;
+
+      if (this.userData.password2 !== this.userData.password) {
+        console.log(password);
+        this.checkPassword = true;
+        password = true;
+      }
+
+      eKtpServices.getEmail(this.userData.email).then(response => {
+        if (response.status == 200) {
+          this.checkEmail = true;
+          console.log(email);
+          email = true;
+        }
+      });
+
+      if (!password && !email) {
+        eKtpServices.registUser(this.userData).then(response => {
+          console.log(response);
+          this.success = true;
+        })
       }
     },
 
     loginUser() {
+      this.checkLogin = false
       let data = this.loginData;
       eKtpServices
         .loginUser(data)
@@ -158,12 +156,12 @@ export default {
         })
         .catch((e) => {
           if (e.response.data.trace.includes("Incorrect result")) {
-            this.check = true
-          } 
+            this.checkLogin = true
+          }
         });
     },
 
-    loginsignup(){
+    loginsignup() {
       const signUpButton = document.getElementById('signUp');
       const signInButton = document.getElementById('signIn');
       const container = document.getElementById('container');
@@ -179,12 +177,27 @@ export default {
   },
   mounted() {
     this.loginsignup()
-  }
+  },
 }
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+.button-showHide {
+  border-radius: 0 5px 5px 0;
+  /* border: 1px solid #FF4B2B; */
+  background-color: #FF4B2B;
+  color: #FFFFFF;
+  font-size: 14px;
+  /* font-weight: bold; */
+  padding: 9px 15px;
+  margin: 8px 0;
+  /* letter-spacing: 1px; */
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  cursor: pointer;
+}
 
 h1 {
   font-weight: bold;
@@ -258,7 +271,7 @@ input {
 }
 
 .container {
-  background-color: #fff;
+  /* background-color: #fff; */
   /* border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(0, 0, 0, 0.22); */
@@ -383,7 +396,80 @@ input {
   transform: translateX(20%);
 }
 
-.social-container {
-  margin: 20px 0;
+@keyframes cube {
+  from {
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(20) rotate(960deg) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+.background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background: #0F2027;
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+  overflow: hidden;
+}
+
+.background li {
+  position: absolute;
+  top: 80vh;
+  left: 45vw;
+  width: 10px;
+  height: 10px;
+  border: solid 1px #0039ad;
+  color: transparent;
+  transform-origin: top left;
+  transform: scale(0) rotate(0deg) translate(-50%, -50%);
+  animation: cube 7s ease-in forwards infinite;
+}
+
+undefined .background li:nth-child(0) {
+  animation-delay: 0s;
+  left: 42vw;
+  top: 63vh;
+}
+
+.background li:nth-child(1) {
+  animation-delay: 2s;
+  left: 79vw;
+  top: 96vh;
+}
+
+.background li:nth-child(2) {
+  animation-delay: 4s;
+  left: 55vw;
+  top: 67vh;
+  border-color: #0046d4;
+}
+
+.background li:nth-child(3) {
+  animation-delay: 6s;
+  left: 92vw;
+  top: 26vh;
+  border-color: #0046d4;
+}
+
+.background li:nth-child(4) {
+  animation-delay: 8s;
+  left: 17vw;
+  top: 13vh;
+}
+
+.background li:nth-child(5) {
+  animation-delay: 10s;
+  left: 12vw;
+  top: 37vh;
 }
 </style>

@@ -1,20 +1,13 @@
 <template>
   <div class="about">
-    <div class="container" v-show="success">
-      <app-success />
-    </div>
-
-    <div v-show="!success">
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6 ml-2">
               <h1>Detail Kartu Keluarga</h1>
-              <router-link to="/home">
-                <button class="btn btn-primary mt-3 mr-2" type="button">Back</button>
-              </router-link>
-                <button class="btn btn-success mt-3 mr-2" type="button" v-show="hideButton" @click="updateFunction()">Update Kartu Keluarga</button>
-              <router-link :to="{ name: 'ListPage' }">
+              <button v-show="!success" @click.prevent="$router.back()" class="btn btn-primary mt-3 mr-2" type="button">Back</button>
+                <button class="btn btn-success mt-3 mr-2" type="button" v-show="hideButton && !success" @click="updateFunction()">Update Kartu Keluarga</button>
+              <router-link :to="{ name: 'ListPage' }" v-show="!success">
                 <button class="btn btn-info mt-3" type="button">Lihat Kartu Keluarga</button>
               </router-link>
             </div>
@@ -22,6 +15,11 @@
         </div>
       </section>
 
+      <div class="container" v-show="success">
+        <app-success />
+      </div>
+
+    <div v-show="!success">
       <section class="content">
         <div class="container-fluid">
           <form class="border p-5 bg-white" @submit.prevent="updateKK">

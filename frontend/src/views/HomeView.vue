@@ -14,38 +14,41 @@
       <div class="container-fluid px-lg-4">
         <div class="row">
           <div class="col-sm-4">
-            <div class="card">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title mb-3">Jumlah Kartu Keluarga</h5>
-                  <div class="d-flex justify-content-between">
-                    <h2 class="card-text">{{ KKData.length }}</h2>
-                    <h1><i class="fas fa-users"></i></h1>
-                  </div>
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ KKData.length }}</h3>
+                <p>Kartu Keluarga</p>
               </div>
+              <div class="icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <a class="small-box-footer"></a>
             </div>
           </div>
         
           <div class="col-sm-4">
-            <div class="card">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title mb-3">Jumlah Penduduk</h5>
-                <div class="d-flex justify-content-between">
-                  <h2 class="card-text">{{ AnggotaData.length }}</h2>
-                  <h1><i class="fas fa-user"></i></h1>
-                </div>
+            <div class="small-box bg-gradient-teal">
+              <div class="inner">
+                <h3>{{ AnggotaData.length }}</h3>
+                <p>Penduduk</p>
               </div>
+              <div class="icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <a class="small-box-footer"></a>
             </div>
           </div>
         
           <div class="col-sm-4">
-            <div class="card">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title mb-3">Jumlah Pengguna</h5>
-                <div class="d-flex justify-content-between">
-                  <h2 class="card-text">{{ UserData.length }}</h2>
-                  <h1><i class="fas fa-user-tie"></i></h1>
-                </div>
+            <div class="small-box bg-gradient-success">
+              <div class="inner">
+                <h3>{{ UserData.length }}</h3>
+                <p>User</p>
               </div>
+              <div class="icon">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <a class="small-box-footer"></a>
             </div>
           </div>
         </div>
@@ -54,9 +57,12 @@
 
     <section class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-2 col-sm-12">
           <div class="col-sm-6">
             <h1>Data Kartu Keluarga</h1>
+          </div>
+          <div class="col-sm-6">
+            <input v-model="search" class="form-control mr-sm-2 w-25 " type="search" placeholder="Search">
           </div>
         </div>
       </div>
@@ -79,7 +85,7 @@
             <tr>
               <td colspan="6" class="text-center font-weight-bold" v-if="KKData.length == 0">Tidak ada Data </td>
             </tr>
-            <tr v-for="(item,index) in KKData" :key="index">
+            <tr v-for="(item,index) in searchKK" :key="index">
               <th scope="row">{{index+=1}}</th>
               <td>{{ item.nomor_kk }}</td>
               <td>{{ item.alamat + ", " + item.desa_kelurahan + ", " + item.kecamatan }}</td>
@@ -92,7 +98,7 @@
                   </button>
                 </router-link>
                 <router-link to="/home">
-                  <button class="btn btn-sm btn-danger" @click="deleteKKFunction(item.id)">
+                  <button class="btn btn-sm btn-danger" @click="deleteKKFunction(item.id, item.nomor_kk)">
                     Delete
                   </button>
                 </router-link>
@@ -109,6 +115,7 @@
 <script>
 // @ is an alias to /src
 import eKtpServices from '@/services/eKtpServices';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'HomePage',
@@ -118,6 +125,7 @@ export default {
       AnggotaData: [],
       UserData: [],
       success: false,
+      search: ''
     };
   },
   mounted() {
@@ -153,23 +161,51 @@ export default {
           console.log(e);
         });
     },
-    deleteKKFunction(id) {
-      if (confirm(`Apakah anda yakin hapus data ?`)) {
-        eKtpServices.deleteKK(id)
-          .then(response => {
-            console.log(response.data);
-            eKtpServices.deleteAllAnggota(id)
-            .then(location.reload())
-          })
-          .catch(e => {
-            console.log(e);
-          })
-
-        this.success = true;
-      } else {
-        alert("Hapus dibatalkan!")
-      }
+    deleteKKFunction(id, nomor_kk) {
+      Swal.fire({
+        title: "Anda Yakin Ingin Menghapus " + `${nomor_kk}` + "?",
+        text: "Klik Batal Untuk Membatalkan Penghapusan",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Hapus"
+      }).then(result => {
+        if (result.value) {
+          eKtpServices.deleteKK(id)
+            .then(response => {
+              console.log(response.data);
+              eKtpServices.deleteAllAnggota(id)
+                .then(response => {
+                  console.log(response)
+                  Swal.fire(
+                    "Terhapus",
+                    "Data Anda Sudah Tehapus",
+                    "success"
+                  ).then(() => {
+                    location.reload();
+                  });
+                })
+            })
+            .catch(e => {
+              console.log(e);
+              Swal.fire(
+                "Gagal",
+                "Data Gagal Terhapus",
+                "warning"
+              );
+            })
+        }
+      })
     },
   },
+  computed: {
+    searchKK() {
+      return this.KKData.filter(item => 
+        String(item.nomor_kk).includes(this.search)
+      );
+    }
+  },
+  
 }
 </script>

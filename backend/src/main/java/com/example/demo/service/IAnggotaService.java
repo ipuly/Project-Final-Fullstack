@@ -2,23 +2,23 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.model.AddAnggota;
+import com.example.demo.model.AnggotaModel;
 
 public interface IAnggotaService {
-	public AddAnggota insertAddAnggota(AddAnggota addanggota);
+	public AnggotaModel insertAddAnggota(AnggotaModel addanggota);
 
-	public List<AddAnggota> getAllAddAnggota();
+	public List<AnggotaModel> getAllAddAnggota();
 
-	public AddAnggota updateAddAnggota(int id, AddAnggota addanggota);
+	public AnggotaModel updateAddAnggota(int id, AnggotaModel addanggota);
 
-	public AddAnggota deleteAddAnggota(int id);
+	public AnggotaModel deleteAddAnggota(int id);
 
-	public List<AddAnggota> deleteAllAnggota(String id_kk);
+	public List<AnggotaModel> deleteAllAnggota(String id_kk);
 
-	public AddAnggota getAnggota(int id);
+	public AnggotaModel getAnggota(int id);
 
-	public List<AddAnggota> getAnggotaByIdKk(String id_kk);
+	public List<AnggotaModel> getAnggotaByIdKk(String id_kk);
 
-	public AddAnggota updateAnggotaByIdKk(String id_kk, AddAnggota AddAnggota);
+	public AnggotaModel updateAnggotaByIdKk(String id_kk, AnggotaModel AddAnggota);
 
 }

@@ -1,12 +1,10 @@
 <template>
-    <div class="container">
+    <div class="container d-flex flex-row justify-content-center align-items-center">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-header">Success!</h5>
-                <p class="card-body">Data has been <strong> {{ messages }}! </strong></p>
-                <button @click="refresh()" v-if="messages == 'Inputed'" class="btn btn-primary">Close</button>
-                <button @click="refresh()" v-else-if="messages == 'Updated'" class="btn btn-primary">Close</button>
-                <button @click="refresh()" v-else class="btn btn-primary" >Close</button>
+                <h5 class="card-header">Sukses!</h5>
+                <p class="card-body">Data Berhasil <strong> {{ messages }} </strong></p>
+                <button @click="refresh()" class="btn btn-primary">Close</button>
             </div>
         </div>
     </div>
@@ -22,10 +20,12 @@ export default {
     methods: {
         ubahMessages() {
             let route = this.$route.name;
-            if (route === "addPage") {
-                this.messages = "Inputed";
+            if (route === "AddPage" || route === 'ListPage' ) {
+                this.messages = "Ditambahkan!";
+            } else if (route === 'DetailPage' || route === 'DetailAnggotaPage' || route === 'DetailUserPage') {
+                this.messages = "Diupdate!";
             } else {
-                this.messages = "Updated";
+                this.messages = "Terdaftar!"
             }
         },
         refresh(){
@@ -39,6 +39,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 </style>

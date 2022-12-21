@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.AddAnggota;
+import com.example.demo.model.AnggotaModel;
 import com.example.demo.repository.IAnggotaRepository;
 import com.example.demo.service.IAnggotaService;
 
@@ -16,42 +16,42 @@ public class AnggotaService implements IAnggotaService {
 	IAnggotaRepository anggotaRepository;
 
 	@Override
-	public AddAnggota insertAddAnggota(AddAnggota AddAnggota) {
+	public AnggotaModel insertAddAnggota(AnggotaModel AddAnggota) {
 		return anggotaRepository.insertAddAnggota(AddAnggota);
 	}
 
 	@Override
-	public List<AddAnggota> getAllAddAnggota() {
+	public List<AnggotaModel> getAllAddAnggota() {
 		return anggotaRepository.getAllAddAnggota();
 	}
 
 	@Override
-	public AddAnggota updateAddAnggota(int id, AddAnggota AddAnggota) {
+	public AnggotaModel updateAddAnggota(int id, AnggotaModel AddAnggota) {
 		return anggotaRepository.updateAddAnggota(id, AddAnggota);
 	}
 
 	@Override
-	public AddAnggota deleteAddAnggota(int id) {
+	public AnggotaModel deleteAddAnggota(int id) {
 		return anggotaRepository.deleteAddAnggota(id);
 	}
 
 	@Override
-	public List<AddAnggota> getAnggotaByIdKk(String id_kk) {
+	public List<AnggotaModel> getAnggotaByIdKk(String id_kk) {
 		return anggotaRepository.getAnggotaByIdKk(id_kk);
 	}
 
 	@Override
-	public AddAnggota updateAnggotaByIdKk(String id_kk, AddAnggota AddAnggota) {
+	public AnggotaModel updateAnggotaByIdKk(String id_kk, AnggotaModel AddAnggota) {
 		return anggotaRepository.updateAnggotaByIdKk(id_kk, AddAnggota);
 	}
 
 	@Override
-	public AddAnggota getAnggota(int id) {
+	public AnggotaModel getAnggota(int id) {
 		return anggotaRepository.getAnggota(id);
 	}
 
 	@Override
-	public List<AddAnggota> deleteAllAnggota(String id_kk) {
+	public List<AnggotaModel> deleteAllAnggota(String id_kk) {
 		return anggotaRepository.deleteAllAnggota(id_kk);
 	}
 

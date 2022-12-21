@@ -1,21 +1,20 @@
 <template>
   <div class="about">
-    <div class="container" v-show="success">
-      <app-success />
-    </div>
-
-    <div v-show="!success">
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6 ml-2">
-              <h1>Tambah Kartu Keluarga</h1>
-                <button class="btn btn-primary mt-3" type="button" @click="$router.back()">Back</button>
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6 ml-2">
+            <h1>Tambah Kartu Keluarga</h1>
+                <button v-show="!success" class="btn btn-primary mt-3" type="button" @click="$router.back()">Back</button>
             </div>
           </div>
         </div>
       </section>
-
+      <div class="container" v-show="success">
+        <app-success />
+      </div>
+      
+    <div v-show="!success">
       <section class="content">
         <div class="container-fluid">
           <form action="" class="border p-5 bg-gradient-white" @submit.prevent="inputKK">

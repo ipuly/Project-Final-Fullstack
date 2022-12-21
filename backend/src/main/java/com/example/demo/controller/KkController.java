@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.AddKk;
+import com.example.demo.model.KkModel;
 import com.example.demo.service.IKkService;
 
 @RestController
@@ -25,27 +25,27 @@ public class KkController {
 	IKkService AddKkService;
 
 	@PostMapping("/insert")
-	public AddKk insertAddKk(@RequestBody AddKk AddKk) {
+	public KkModel insertAddKk(@RequestBody KkModel AddKk) {
 		return AddKkService.insertAddKk(AddKk);
 	}
 
 	@GetMapping("/getAll")
-	public List<AddKk> getAllAddKk() {
+	public List<KkModel> getAllAddKk() {
 		return AddKkService.getAllAddKk();
 	}
 
 	@PutMapping("/update/{id}")
-	public AddKk updateAddKk(@PathVariable int id, @RequestBody AddKk AddKk) {
+	public KkModel updateAddKk(@PathVariable int id, @RequestBody KkModel AddKk) {
 		return AddKkService.updateAddKk(id, AddKk);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public AddKk deleteAddKk(@PathVariable int id) {
+	public KkModel deleteAddKk(@PathVariable int id) {
 		return AddKkService.deleteAddKk(id);
 	}
 
 	@GetMapping("/getData/{id}")
-	public AddKk getKkById(@PathVariable int id) {
+	public KkModel getKkById(@PathVariable int id) {
 		return AddKkService.getKkById(id);
 	}
 

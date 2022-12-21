@@ -19,6 +19,12 @@
             <p class="ml-2">Kartu Keluarga</p>
           </router-link>
         </li>
+        <li class="nav-item mt-3">
+          <router-link to="/user" class="nav-link text-white">
+            <i class="fas fa-user"></i>
+            <p class="ml-2">User</p>
+          </router-link>
+        </li>
       </ul>
     </nav>
   </div>

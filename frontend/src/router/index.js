@@ -43,6 +43,16 @@ const routes = [
         name: 'DetailAnggotaPage',
         component: () => import('../views/DetailAnggotaView')
       },
+      {
+        path: '/user',
+        name: 'userPage',
+        component: () => import('../views/UserView')
+      },
+      {
+        path: '/user/:id',
+        name: 'DetailUserPage',
+        component: () => import('../views/DetailUserView')
+      },
     ]
   },
   {

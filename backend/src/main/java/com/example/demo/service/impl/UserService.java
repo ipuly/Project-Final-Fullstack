@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.AddUser;
+import com.example.demo.model.UserModel;
 import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.IUserService;
 
@@ -15,31 +15,42 @@ public class UserService implements IUserService {
 	IUserRepository userRepository;
 
 	@Override
-	public AddUser insertAddUser(AddUser AddUser) {
+	public UserModel insertAddUser(UserModel AddUser) {
 		return userRepository.insertAddUser(AddUser);
 	}
 
 	@Override
-	public AddUser getUser(String email, String password) {
+	public UserModel getUser(String email, String password) {
 		return userRepository.getUser(email, password);
 	}
 
 	@Override
-	public List<AddUser> getAllAddUser() {
+	public UserModel getEmail(String email) {
+		return userRepository.getEmail(email);
+	}
+
+	@Override
+	public List<UserModel> getAllAddUser() {
 		// TODO Auto-generated method stub
 		return userRepository.getAllAddUser();
 	}
 
 	@Override
-	public AddUser updateAddUser(int id, AddUser AddUser) {
+	public UserModel updateUser(int id, UserModel AddUser) {
 		// TODO Auto-generated method stub
-		return userRepository.updateAddUser(id, AddUser);
+		return userRepository.updateUser(id, AddUser);
 	}
 
 	@Override
-	public AddUser deleteAddUser(int id) {
+	public UserModel deleteAddUser(int id) {
 		// TODO Auto-generated method stub
 		return userRepository.deleteAddUser(id);
+	}
+
+	@Override
+	public UserModel getUserById(int id) {
+		// TODO Auto-generated method stub
+		return userRepository.getUserById(id);
 	}
 
 }

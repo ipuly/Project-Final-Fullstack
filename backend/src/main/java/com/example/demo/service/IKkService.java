@@ -2,17 +2,17 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.model.AddKk;
+import com.example.demo.model.KkModel;
 
 public interface IKkService {
 
-	public AddKk insertAddKk(AddKk addkk);
+	public KkModel insertAddKk(KkModel addkk);
 
-	public List<AddKk> getAllAddKk();
+	public List<KkModel> getAllAddKk();
 
-	public AddKk updateAddKk(int id, AddKk addkk);
+	public KkModel updateAddKk(int id, KkModel addkk);
 
-	public AddKk deleteAddKk(int id);
+	public KkModel deleteAddKk(int id);
 
-	public AddKk getKkById(int id);
+	public KkModel getKkById(int id);
 }
